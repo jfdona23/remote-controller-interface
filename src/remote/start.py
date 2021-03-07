@@ -13,14 +13,15 @@ from pan_tilt import pan_servo, tilt_servo
 # ----------------------------------------------------------------------------------------------- #
 # Flask config
 app = Flask(__name__)
-HOST = os.environ.get("HOST", "0.0.0.0")
-PORT = os.environ.get("PORT", "8080")
+LISTEN_HOST = os.environ.get("LISTEN_HOST", "0.0.0.0")
+LISTEN_PORT = os.environ.get("LISTEN_PORT", "8080")
 
 # Servo config
 servos = [pan_servo, tilt_servo]
-pan_tilt.set_angle(servos, 90)
-tilt_angle = 90
-pan_angle = 90
+initial_angle = 90
+pan_tilt.set_angle(servos, initial_angle)
+tilt_angle = initial_angle
+pan_angle = initial_angle
 
 
 # ----------------------------------------------------------------------------------------------- #
@@ -94,4 +95,4 @@ def move_right():
 # Main Loop
 # ----------------------------------------------------------------------------------------------- #
 if __name__ == "__main__":
-    app.run(host=HOST, port=PORT)
+    app.run(host=LISTEN_HOST, port=LISTEN_PORT)
