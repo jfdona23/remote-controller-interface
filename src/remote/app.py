@@ -1,6 +1,8 @@
 """
 Start Remote side
 """
+import os
+
 from flask import Flask
 
 import pan_tilt
@@ -9,7 +11,10 @@ from pan_tilt import pan_servo, tilt_servo
 # ----------------------------------------------------------------------------------------------- #
 # General Config
 # ----------------------------------------------------------------------------------------------- #
+# Flask config
 app = Flask(__name__)
+HOST = os.environ.get("HOST", "0.0.0.0")
+PORT = os.environ.get("PORT", "8080")
 
 # Servo config
 servos = [pan_servo, tilt_servo]
@@ -89,4 +94,4 @@ def move_right():
 # Main Loop
 # ----------------------------------------------------------------------------------------------- #
 if __name__ == "__main__":
-    app.run()
+    app.run(host=HOST, port=PORT)

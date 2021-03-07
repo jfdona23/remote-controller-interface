@@ -1,9 +1,21 @@
 """
 Controller that translates keystrokes into function calls
 """
+import os
+
+import requests
+
 from evdev_handler import scan_key_events_loop, select_event_device
 
+# ----------------------------------------------------------------------------------------------- #
+# Constants
+# ----------------------------------------------------------------------------------------------- #
+REMOTE_URL = os.environ.get("REMOTE_URL", "0.0.0.0")
+REMOTE_PORT = os.environ.get("REMOTE_PORT", "8080")
 
+# ----------------------------------------------------------------------------------------------- #
+# Main Programm
+# ----------------------------------------------------------------------------------------------- #
 class KeyTranslator:
     """KeyTranslator"""
 
@@ -31,8 +43,12 @@ class KeyTranslator:
     def move_up(self):
         """Move Up"""
 
+        requests.get("http://"+REMOTE_URL+":"+REMOTE_PORT+"/up")
+
     def move_down(self):
         """Move Down"""
+
+        requests.get("http://"+REMOTE_URL+":"+REMOTE_PORT+"/down")
 
     def move_forward(self):
         """Move Forward"""
@@ -43,8 +59,12 @@ class KeyTranslator:
     def move_left(self):
         """Move Left"""
 
+        requests.get("http://"+REMOTE_URL+":"+REMOTE_PORT+"/left")
+
     def move_right(self):
         """Move Right"""
+
+        requests.get("http://"+REMOTE_URL+":"+REMOTE_PORT+"/right")
 
     @scan_key_events_loop()
     def key_to_move(self, event):
@@ -65,17 +85,15 @@ class KeyTranslator:
         if event["keycode"] not in self.authorized_keys:
             return
 
-        if event["keystate"] == "up":
-            print(f"Stop")
-        else:
+        if event["keystate"] != "up":
             if event["keycode"] in self.up_keys:
-                print(f"Presionaste {event['keycode']}")
+                self.move_up()
             if event["keycode"] in self.down_keys:
-                print(f"Presionaste {event['keycode']}")
+                self.move_down()
             if event["keycode"] in self.left_keys:
-                print(f"Presionaste {event['keycode']}")
+                self.move_left()
             if event["keycode"] in self.right_keys:
-                print(f"Presionaste {event['keycode']}")
+                self.move_right()
 
     def start(self):
         """start"""
