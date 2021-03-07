@@ -1,7 +1,7 @@
 """
 Start Local side
 """
-from evdev_handler import select_event_device, get_event_devices
+from evdev_handler import get_event_devices
 from key_translate import KeyTranslator
 
 

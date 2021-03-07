@@ -5,7 +5,7 @@ import os
 
 import requests
 
-from evdev_handler import scan_key_events_loop, select_event_device
+from evdev_handler import scan_key_events_loop
 
 # ----------------------------------------------------------------------------------------------- #
 # Constants

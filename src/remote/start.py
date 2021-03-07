@@ -27,6 +27,14 @@ pan_angle = initial_angle
 # ----------------------------------------------------------------------------------------------- #
 # Main Program
 # ----------------------------------------------------------------------------------------------- #
+@app.route("/reset")
+def move_reset():
+    """Movement Reset"""
+
+    pan_tilt.set_angle(servos, initial_angle)
+    return f"Set angle to {initial_angle} degrees.\n"
+
+
 @app.route("/tilt/<int:angle>")
 def move_tilt(angle):
     """Move tilt"""
