@@ -6,41 +6,55 @@ from flask import Flask
 import pan_tilt
 from pan_tilt import pan_servo, tilt_servo
 
+# ----------------------------------------------------------------------------------------------- #
+# General Config
+# ----------------------------------------------------------------------------------------------- #
 app = Flask(__name__)
+
+# Servo config
 servos = [pan_servo, tilt_servo]
+pan_tilt.set_angle(servos, 90)
+tilt_angle = 90
+pan_angle = 90
+
+
+# ----------------------------------------------------------------------------------------------- #
+# Main Program
+# ----------------------------------------------------------------------------------------------- #
+@app.route("/tilt/<int:angle>")
+def move_tilt(angle):
+    """Move tilt"""
+
+    pan_tilt.set_angle(tilt_servo, angle)
+    return f"Set Tilt to {angle} degrees.\n"
+
+
+@app.route("/pan/<int:angle>")
+def move_pan(angle):
+    """Move pan"""
+
+    pan_tilt.set_angle(pan_servo, angle)
+    return f"Set Pan to {angle} degrees.\n"
 
 @app.route("/up")
 def move_up():
     """Move Up"""
 
-    pan_tilt.set_angle(tilt_servo, 45)
-
+    tilt_angle -= 5
+    if tilt_angle < 0:
+        tilt_angle = 0
+    pan_tilt.set_angle(pan_servo, tilt_angle)
+    return f"Set angle to {tilt_angle} degrees.\n"
 
 @app.route("/down")
 def move_down():
     """Move Down"""
 
-    pan_tilt.set_angle(tilt_servo, 135)
-
-
-@app.route("/forward")
-def move_forward():
-    """Move Forward"""
-
-
-@app.route("/backward")
-def move_backward():
-    """Move Backward"""
-
-
-@app.route("/left")
-def move_left():
-    """Move Left"""
-
-
-@app.route("/right")
-def move_right():
-    """Move Right"""
+    tilt_angle += 5
+    if tilt_angle < 180:
+        tilt_angle = 180
+    pan_tilt.set_angle(pan_servo, tilt_angle)
+    return f"Set angle to {tilt_angle} degrees.\n"
 
 
 if __name__ == "__main__":
