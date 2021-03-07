@@ -73,7 +73,7 @@ def move_left():
     global pan_angle
     pan_angle += 5
     if pan_angle > 180:
-        pan_angle = 0
+        pan_angle = 180
     pan_tilt.set_angle(pan_servo, pan_angle)
     return f"Set angle to {pan_angle} degrees.\n"
 
