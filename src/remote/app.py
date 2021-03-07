@@ -40,20 +40,22 @@ def move_pan(angle):
 def move_up():
     """Move Up"""
 
+    global tilt_angle
     tilt_angle -= 5
     if tilt_angle < 0:
         tilt_angle = 0
-    pan_tilt.set_angle(pan_servo, tilt_angle)
+    pan_tilt.set_angle(tilt_servo, tilt_angle)
     return f"Set angle to {tilt_angle} degrees.\n"
 
 @app.route("/down")
 def move_down():
     """Move Down"""
 
+    global tilt_angle
     tilt_angle += 5
     if tilt_angle < 180:
         tilt_angle = 180
-    pan_tilt.set_angle(pan_servo, tilt_angle)
+    pan_tilt.set_angle(tilt_servo, tilt_angle)
     return f"Set angle to {tilt_angle} degrees.\n"
 
 
