@@ -32,7 +32,7 @@ def get_angle(servo):
         - servo (int): GPIO where the servo is connected
 
     Returns:
-        - angle (int): Current angle
+        - angle (float): Current angle
     """
 
     return (pi.get_servo_pulsewidth(servo) - low_pulse) / step
@@ -85,7 +85,6 @@ def set_angle_smooth(servo_list, angle, step=1, delay=0.005):
         if current_angle > angle:
             step = -step
         for a in range(current_angle, angle + step, step):
-            print(a)
             set_angle(servo, a)
             sleep(delay)
         step = step_bkp
