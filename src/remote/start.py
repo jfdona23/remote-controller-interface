@@ -20,7 +20,7 @@ LISTEN_PORT = os.environ.get("LISTEN_PORT", "8080")
 servos = [pan_servo, tilt_servo]
 initial_angle = 90
 pan_tilt.set_angle(servos, initial_angle)
-
+step = 5
 
 # ----------------------------------------------------------------------------------------------- #
 # Main Program
@@ -53,7 +53,7 @@ def move_pan(angle):
 def move_up():
     """Move Up"""
 
-    tilt_angle = pan_tilt.get_angle(tilt_servo) - 5
+    tilt_angle = pan_tilt.get_angle(tilt_servo) - step
     if tilt_angle < 0:
         tilt_angle = 0
     pan_tilt.set_angle_smooth(tilt_servo, tilt_angle)
@@ -64,7 +64,7 @@ def move_up():
 def move_down():
     """Move Down"""
 
-    tilt_angle = pan_tilt.get_angle(tilt_servo) + 5
+    tilt_angle = pan_tilt.get_angle(tilt_servo) + step
     if tilt_angle > 180:
         tilt_angle = 180
     pan_tilt.set_angle_smooth(tilt_servo, tilt_angle)
@@ -75,7 +75,7 @@ def move_down():
 def move_left():
     """Move Left"""
 
-    pan_angle = pan_tilt.get_angle(pan_servo) + 5
+    pan_angle = pan_tilt.get_angle(pan_servo) + step
     if pan_angle > 180:
         pan_angle = 180
     pan_tilt.set_angle_smooth(pan_servo, pan_angle)
@@ -86,7 +86,7 @@ def move_left():
 def move_right():
     """Move Right"""
 
-    pan_angle = pan_tilt.get_angle(pan_servo) - 5
+    pan_angle = pan_tilt.get_angle(pan_servo) - step
     if pan_angle < 0:
         pan_angle = 0
     pan_tilt.set_angle_smooth(pan_servo, pan_angle)
