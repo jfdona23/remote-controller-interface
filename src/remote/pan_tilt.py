@@ -66,7 +66,7 @@ def set_angle(servo_list, angle):
         pi.set_servo_pulsewidth(servo, pulse_width)
 
 
-def set_angle_smooth(servo_list, angle, step=1, delay=0.05):
+def set_angle_smooth(servo_list, angle, step=1, delay=0.005):
     """Set an angle smoothly by traversing several angles until reaching the desired one
 
     Args:

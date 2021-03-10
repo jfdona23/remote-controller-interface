@@ -59,7 +59,7 @@ def move_up():
     tilt_angle -= 5
     if tilt_angle < 0:
         tilt_angle = 0
-    pan_tilt.set_angle(tilt_servo, tilt_angle)
+    pan_tilt.set_angle_smooth(tilt_servo, tilt_angle)
     return f"Set angle to {tilt_angle} degrees.\n"
 
 
@@ -71,7 +71,7 @@ def move_down():
     tilt_angle += 5
     if tilt_angle > 180:
         tilt_angle = 180
-    pan_tilt.set_angle(tilt_servo, tilt_angle)
+    pan_tilt.set_angle_smooth(tilt_servo, tilt_angle)
     return f"Set angle to {tilt_angle} degrees.\n"
 
 
@@ -83,7 +83,7 @@ def move_left():
     pan_angle += 5
     if pan_angle > 180:
         pan_angle = 180
-    pan_tilt.set_angle(pan_servo, pan_angle)
+    pan_tilt.set_angle_smooth(pan_servo, pan_angle)
     return f"Set angle to {pan_angle} degrees.\n"
 
 
@@ -95,7 +95,7 @@ def move_right():
     pan_angle -= 5
     if pan_angle < 0:
         pan_angle = 0
-    pan_tilt.set_angle(pan_servo, pan_angle)
+    pan_tilt.set_angle_smooth(pan_servo, pan_angle)
     return f"Set angle to {pan_angle} degrees.\n"
 
 
